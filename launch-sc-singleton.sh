@@ -3,6 +3,7 @@ DEFAULT_SC_PATH=/Users/maxdobeck/workspace/sauce_connect/sc-4.5.1-osx
 DEFAULT_SC_VER=4.5.1
 SC_VER=''
 SC_PATH=''
+LOG_PATH=/tmp/singleton-tunnel.log
 
 setPath () {
     if [ -z $1 ]
@@ -20,17 +21,23 @@ setPath () {
 setPath $1
 
 echo "Launching Sauce Connect ${SC_VER}"
-$SC_PATH/bin/sc -u $SAUCE_USERNAME -k $SAUCE_ACCESS_KEY -v -d /tmp/singleton-tunnel.pid | 
+echo Logging to $LOG_PATH
+$SC_PATH/bin/sc -u $SAUCE_USERNAME -k $SAUCE_ACCESS_KEY -v -d /tmp/singleton-tunnel.pid -l $LOG_PATH | 
 while IFS= read -r line
 do
     case $line in
     *"Sauce Connect is up, you may start your tests."* )
         # SC finished successfully starting, let's stop it
         echo "Sauce Connect started normally"
-        echo "Stopping"
+        echo "Stopping  the tunnel"
         SC_PID=$(cat /tmp/singleton-tunnel.pid)
         echo $SC_PID
         kill -INT $SC_PID
+        break
+        ;;
+    *"Goodbye."* )
+        # SC didn't start for some reason
+        echo "Sauce Connect did not start"
         break
         ;;
     esac
