@@ -5,7 +5,7 @@ SC_VER=''
 SC_PATH=''
 LOG_PATH=/tmp/singleton-tunnel.log
 
-setPath () {
+setVersion () {
     if [ -z $1 ]
     then
         echo Using sauce connect ${DEFAULT_SC_VER} at ${DEFAULT_SC_PATH}
@@ -18,7 +18,7 @@ setPath () {
     fi
 }
 
-setPath $1
+setVersion $1
 
 echo "Launching Sauce Connect ${SC_VER}"
 echo Logging to $LOG_PATH
