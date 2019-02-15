@@ -27,9 +27,9 @@ cleanup () {
 setVersion $1
 
 i=0
-succ=0
-# Launch 5 serial tunnels
-while [ $i -lt 5 ]
+touch /tmp/tunnel-count
+# Launch X number of tunnels in serial
+while [ $i -lt 2 ]
 do
     i=$[$i+1]
     echo "Launching Sauce Connect ${SC_VER}"
@@ -46,7 +46,7 @@ do
             echo "Stopping  the tunnel"
             SC_PID=$(cat $PID_FILE)
             cleanup
-            succ=$[$succ+1]
+            echo "$SC_PID tunnel opened" >> /tmp/tunnel-count
             kill -INT $SC_PID
             break
             ;;
@@ -58,4 +58,6 @@ do
         esac
     done
 done
-echo "[${succ}/${i}] tunnels started"
+tunnels_opened=$(wc -l < /tmp/tunnel-count)
+echo "${tunnels_opened}/${i} tunnels started"
+rm /tmp/tunnel-count
