@@ -28,10 +28,9 @@ do
     case $line in
     *"Sauce Connect is up, you may start your tests."* )
         # SC finished successfully starting, let's stop it
-        echo "Sauce Connect started normally"
+        echo $'\xE2\x9C\x94'  "Sauce Connect started normally"
         echo "Stopping  the tunnel"
         SC_PID=$(cat /tmp/singleton-tunnel.pid)
-        echo $SC_PID
         kill -INT $SC_PID
         break
         ;;
