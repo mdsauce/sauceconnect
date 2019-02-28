@@ -35,7 +35,7 @@ do
     TUNNEL_NAME=sc-serial-$DATETIME
     i=$[$i+1]
     echo "\n"
-    echo "Launching Sauce Connect ${SC_VER}"
+    echo "Launching EU Sauce Connect ${SC_VER}"
     echo Logging to $LOG_PATH
     # SC Command line should evaluate as if you typed it in yourself
     $SC_PATH/bin/sc -u $SAUCE_USERNAME -k $SAUCE_ACCESS_KEY -i $TUNNEL_NAME -v -x http://eu-central-1.saucelabs.com/rest/v1/ -d $PID_FILE -l $LOG_PATH --se-port 0 | 
