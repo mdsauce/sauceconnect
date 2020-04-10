@@ -1,5 +1,5 @@
 #!/bin/bash
-DEFAULT_SC_PATH=/Users/maxdobeck/workspace/sauce_connect/sc-4.5.1-osx
+DEFAULT_SC_PATH=/Users/maxdobeck/workspace/scstuff/sc-4.5.4-osx
 DEFAULT_SC_VER=4.5.1
 SC_VER=''
 SC_PATH=''
